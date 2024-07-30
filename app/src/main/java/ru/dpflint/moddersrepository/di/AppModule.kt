@@ -7,7 +7,6 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.dpflint.moddersrepository.BuildConfig
-import ru.dpflint.moddersrepository.data.ModsRepository
 import ru.dpflint.moddersrepository.presentation.viewmodel.MainViewModel
 import ru.dpflint.moddersrepository.data.remote.ModsApi
 
@@ -40,10 +39,6 @@ val appModule = module {
         OkHttpClient.Builder()
             .addInterceptor(get<HttpLoggingInterceptor>())
             .build()
-    }
-
-    single<ModsRepository> {
-        ModsRepository()
     }
 
     viewModel {

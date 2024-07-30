@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import ru.dpflint.moddersrepository.data.ModsRepository
+import ru.dpflint.moddersrepository.data.repository.ModsRepository
 import ru.dpflint.moddersrepository.presentation.screens.main.ModsIntent
 import ru.dpflint.moddersrepository.presentation.screens.main.ModsViewState
 
