@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import org.koin.core.component.KoinComponent
 import org.koin.java.KoinJavaComponent.get
+import org.koin.java.KoinJavaComponent.inject
 import ru.dpflint.moddersrepository.data.mappers.toGameModel
 import ru.dpflint.moddersrepository.data.remote.ModsApi
 import ru.dpflint.moddersrepository.data.remote.dto.response.GameModelResponse
@@ -12,7 +13,10 @@ import ru.dpflint.moddersrepository.domain.model.GameModel
 import ru.dpflint.moddersrepository.domain.repository.ModsRepository
 import ru.dpflint.moddersrepository.utils.Resource
 
-class GetDataFromNexusUseCase(private val modsRepository: ModsRepository = get(ModsRepository::class.java)) : KoinComponent { //TODO
+class GetDataFromNexusUseCase() {
+
+    private val modsRepository by inject<ModsRepository>(ModsRepository::class.java) //TODO
+
     suspend fun getDataFromNexusMods(): Flow<Resource<List<GameModel>>> = flow { //TODO FLOW
 
         //delay(4000)
@@ -26,7 +30,7 @@ class GetDataFromNexusUseCase(private val modsRepository: ModsRepository = get(M
 
             emit(Resource.Success(data = gamesList))
         } catch (e: Exception) {
-
+            emit(Resource.Error(message = e.localizedMessage))
         }
     }
 }

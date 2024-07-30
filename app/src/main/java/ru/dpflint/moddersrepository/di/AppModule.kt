@@ -9,6 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import ru.dpflint.moddersrepository.BuildConfig
 import ru.dpflint.moddersrepository.presentation.viewmodel.MainViewModel
 import ru.dpflint.moddersrepository.data.remote.ModsApi
+import ru.dpflint.moddersrepository.domain.usecase.GetDataFromNexusUseCase
 
 val appModule = module {
     single<Retrofit> {
@@ -41,7 +42,11 @@ val appModule = module {
             .build()
     }
 
+    single<GetDataFromNexusUseCase> {
+        GetDataFromNexusUseCase()
+    }
+
     viewModel {
-        MainViewModel(get())
+        MainViewModel()
     }
 }
