@@ -1,8 +1,9 @@
-package ru.dpflint.moddersrepository.utils.test
+package ru.dpflint.moddersrepository.data.remote
 
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Headers
+import ru.dpflint.moddersrepository.domain.model.GameModel
 
 interface ModsApi {
     @GET("v1/games.json")

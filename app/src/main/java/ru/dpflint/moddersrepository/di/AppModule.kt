@@ -8,8 +8,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.dpflint.moddersrepository.BuildConfig
 import ru.dpflint.moddersrepository.data.ModsRepository
-import ru.dpflint.moddersrepository.presentation.screens.viewmodels.MainViewModel
-import ru.dpflint.moddersrepository.utils.test.ModsApi
+import ru.dpflint.moddersrepository.presentation.viewmodel.MainViewModel
+import ru.dpflint.moddersrepository.data.remote.ModsApi
 
 val appModule = module {
     single<Retrofit> {

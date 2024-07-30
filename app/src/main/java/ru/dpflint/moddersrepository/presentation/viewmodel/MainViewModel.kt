@@ -1,4 +1,4 @@
-package ru.dpflint.moddersrepository.presentation.screens.viewmodels
+package ru.dpflint.moddersrepository.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -6,8 +6,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import ru.dpflint.moddersrepository.data.ModsRepository
-import ru.dpflint.moddersrepository.presentation.screens.ModsIntent
-import ru.dpflint.moddersrepository.presentation.screens.ModsViewState
+import ru.dpflint.moddersrepository.presentation.screens.main.ModsIntent
+import ru.dpflint.moddersrepository.presentation.screens.main.ModsViewState
 
 class MainViewModel(private val modsRepository: ModsRepository) : ViewModel() {
     private val _state = MutableStateFlow(ModsViewState())

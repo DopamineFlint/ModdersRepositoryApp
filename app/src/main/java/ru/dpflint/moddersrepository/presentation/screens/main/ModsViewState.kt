@@ -1,6 +1,6 @@
-package ru.dpflint.moddersrepository.presentation.screens
+package ru.dpflint.moddersrepository.presentation.screens.main
 
-import ru.dpflint.moddersrepository.utils.test.GameModel
+import ru.dpflint.moddersrepository.domain.model.GameModel
 
 data class ModsViewState(
     val isLoading: Boolean = false,

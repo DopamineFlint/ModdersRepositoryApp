@@ -9,6 +9,8 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import retrofit2.Response
+import ru.dpflint.moddersrepository.data.remote.ModsApi
+import ru.dpflint.moddersrepository.domain.model.GameModel
 
 class FetchDataTest {
 
