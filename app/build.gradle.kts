@@ -84,4 +84,7 @@ dependencies {
     implementation(libs.koin.androidx.compose)
 
     implementation(libs.androidx.lifecycle.viewmodel.compose)
+
+    implementation (libs.androidx.navigation.compose)
+
 }

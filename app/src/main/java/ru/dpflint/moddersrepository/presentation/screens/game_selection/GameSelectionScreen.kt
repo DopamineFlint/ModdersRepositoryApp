@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -24,9 +25,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import org.koin.androidx.compose.koinViewModel
 import ru.dpflint.moddersrepository.domain.model.GameModel
 import ru.dpflint.moddersrepository.presentation.components.CustomTopBar
+import ru.dpflint.moddersrepository.presentation.navigation.Screen
 import ru.dpflint.moddersrepository.presentation.screens.main.ErrorMessage
 import ru.dpflint.moddersrepository.presentation.screens.main.GamesList
 import ru.dpflint.moddersrepository.presentation.screens.main.LoadingBar
@@ -35,7 +38,8 @@ import ru.dpflint.moddersrepository.presentation.viewmodel.MainViewModel
 
 @Composable
 fun GameSelectionScreen(
-    viewModel: MainViewModel = koinViewModel()
+    viewModel: MainViewModel = koinViewModel(),
+    navController: NavController
 ) {
 
     val state by viewModel.state.collectAsState()
@@ -49,7 +53,12 @@ fun GameSelectionScreen(
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
-            CustomTopBar(title = "Select Game")
+            CustomTopBar(
+                title = "Select Game",
+                onClick = {
+                    navController.navigate(route = Screen.MainScreen.route)
+                }
+            )
         },
         containerColor = MaterialTheme.colorScheme.onPrimary
     ) { paddingValues ->
@@ -95,6 +104,7 @@ private fun GameSelectionList(
                     text = gamesList[i].name,
                     color = Color.Black
                 )
+                Spacer(modifier = Modifier.weight(1f))
                 Icon(
                     imageVector = Icons.Default.Add, //TODO
                     contentDescription = "Icon"

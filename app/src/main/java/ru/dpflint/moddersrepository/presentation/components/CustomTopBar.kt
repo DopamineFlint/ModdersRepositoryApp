@@ -15,17 +15,18 @@ import androidx.compose.ui.graphics.Color
 @Composable
 fun CustomTopBar(
     title: String,
+    onClick: () -> Unit
 ) {
     TopAppBar(
         title = {
             Text(
                 text = title,
-                color = Color.White
+                color = Color.Black
             )
         },
         actions = {
             IconButton({
-
+                onClick()
             }) {
                 Icon(
                     imageVector = Icons.Default.Done,
@@ -33,7 +34,7 @@ fun CustomTopBar(
                 )
             }
             IconButton({
-
+                onClick()
             }) {
                 Icon(
                     imageVector = Icons.Default.Search,

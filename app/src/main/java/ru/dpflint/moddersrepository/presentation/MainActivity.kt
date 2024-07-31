@@ -10,11 +10,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import ru.dpflint.moddersrepository.presentation.navigation.SetupNavGraph
 import ru.dpflint.moddersrepository.presentation.screens.game_selection.GameSelectionScreen
 import ru.dpflint.moddersrepository.presentation.screens.main.MainScreen
 import ru.dpflint.moddersrepository.presentation.ui.theme.ForTestsAndExercisesTheme
 
 class MainActivity : ComponentActivity() {
+
+    lateinit var navController: NavHostController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -22,12 +29,12 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             ForTestsAndExercisesTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = Color(18, 20, 23) //MaterialTheme.colorScheme.background
                 ) {
-                    GameSelectionScreen()
+                    navController = rememberNavController()
+                    SetupNavGraph(navController = navController)
                 }
             }
         }
