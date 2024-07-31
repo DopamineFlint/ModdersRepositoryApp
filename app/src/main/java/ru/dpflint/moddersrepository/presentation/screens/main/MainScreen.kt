@@ -11,6 +11,8 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -23,13 +25,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import org.koin.androidx.compose.koinViewModel
 import ru.dpflint.moddersrepository.presentation.viewmodel.MainViewModel
 import ru.dpflint.moddersrepository.domain.model.GameModel
+import ru.dpflint.moddersrepository.presentation.components.CustomBottomAppBar
+import ru.dpflint.moddersrepository.presentation.components.CustomTopBar
+import ru.dpflint.moddersrepository.presentation.navigation.Screen
 
 @Composable
 fun MainScreen(
-    viewModel: MainViewModel = koinViewModel()
+    viewModel: MainViewModel = koinViewModel(),
+    navController: NavController
 ) {
     val state by viewModel.state.collectAsState()
 
@@ -39,27 +46,51 @@ fun MainScreen(
         )
     }
 
-    when {
-        state.isLoading -> {
-            LoadingBar()
-        }
-        state.error != null -> {
-            ErrorMessage(state.error)
-        }
-        else -> {
-            GamesList(
-                gamesList = state.games
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        topBar = {
+            CustomTopBar(
+                title = "Select Game",
+                onClick = {
+                    navController.navigate(route = Screen.MainScreen.route)
+                }
             )
+        },
+        bottomBar = {
+            CustomBottomAppBar(
+
+            )
+        },
+        containerColor = MaterialTheme.colorScheme.onPrimary
+    ) { padding ->
+        when {
+            state.isLoading -> {
+                LoadingBar()
+            }
+
+            state.error != null -> {
+                ErrorMessage(state.error)
+            }
+
+            else -> {
+                GamesList(
+                    gamesList = state.games,
+                    paddingValues = padding
+                )
+            }
         }
     }
 }
 
 @Composable
 fun GamesList(
-    gamesList: List<GameModel>
+    gamesList: List<GameModel>,
+    paddingValues: PaddingValues
 ) {
     LazyVerticalGrid(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(paddingValues),
         columns = GridCells.Fixed(2),
         contentPadding = PaddingValues(
             start = 12.dp,
