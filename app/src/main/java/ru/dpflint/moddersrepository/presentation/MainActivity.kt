@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import ru.dpflint.moddersrepository.presentation.screens.game_selection.GameSelectionScreen
 import ru.dpflint.moddersrepository.presentation.screens.main.MainScreen
 import ru.dpflint.moddersrepository.presentation.ui.theme.ForTestsAndExercisesTheme
 
@@ -26,7 +27,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = Color(18, 20, 23) //MaterialTheme.colorScheme.background
                 ) {
-                    MainScreen()
+                    GameSelectionScreen()
                 }
             }
         }

@@ -33,12 +33,6 @@ fun MainScreen(
 ) {
     val state by viewModel.state.collectAsState()
 
-    val coroutineScope = rememberCoroutineScope()
-    val disposableKey = remember { mutableStateOf(false) }
-    val gamesList = remember { mutableStateOf(listOf<GameModel>()) }
-
-    val columnState = rememberLazyListState()
-
     LaunchedEffect(key1 = true) {
         viewModel.handleIntent(
             intent = ModsIntent.LoadGamesFromNexus
