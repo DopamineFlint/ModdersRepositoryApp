@@ -96,7 +96,10 @@ private fun GameSelectionList(
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(10.dp)
     ) {
-        items(gamesList.size) { i ->
+        items(
+            count = gamesList.size,
+            key = { item -> gamesList[item].name }
+        ) { i ->
             Row(
                 modifier = Modifier
                     .wrapContentHeight()
