@@ -50,15 +50,17 @@ fun MainScreen(
         modifier = Modifier.fillMaxSize(),
         topBar = {
             CustomTopBar(
-                title = "Select Game",
+                title = "Games list",
+                enableDoneButton = false,
+                enableSearchButton = true,
                 onClick = {
-                    navController.navigate(route = Screen.MainScreen.route)
+
                 }
             )
         },
         bottomBar = {
             CustomBottomAppBar(
-
+                navController = navController
             )
         },
         containerColor = MaterialTheme.colorScheme.onPrimary

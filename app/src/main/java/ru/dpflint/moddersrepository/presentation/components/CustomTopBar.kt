@@ -15,6 +15,8 @@ import androidx.compose.ui.graphics.Color
 @Composable
 fun CustomTopBar(
     title: String,
+    enableDoneButton: Boolean,
+    enableSearchButton: Boolean,
     onClick: () -> Unit
 ) {
     TopAppBar(
@@ -25,21 +27,26 @@ fun CustomTopBar(
             )
         },
         actions = {
-            IconButton({
-                onClick()
-            }) {
-                Icon(
-                    imageVector = Icons.Default.Done,
-                    contentDescription = "Done"
-                )
+            if (enableDoneButton) {
+                IconButton({
+                    onClick()
+                }) {
+                    Icon(
+                        imageVector = Icons.Default.Done,
+                        contentDescription = "Done"
+                    )
+                }
             }
-            IconButton({
-                onClick()
-            }) {
-                Icon(
-                    imageVector = Icons.Default.Search,
-                    contentDescription = "Search"
-                )
+
+            if (enableSearchButton) {
+                IconButton({
+                    onClick()
+                }) {
+                    Icon(
+                        imageVector = Icons.Default.Search,
+                        contentDescription = "Search"
+                    )
+                }
             }
         }
     )

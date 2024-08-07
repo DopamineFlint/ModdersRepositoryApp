@@ -40,11 +40,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    ForTestsAndExercisesTheme {
-        MainScreen()
-    }
-}

@@ -55,6 +55,8 @@ fun GameSelectionScreen(
         topBar = {
             CustomTopBar(
                 title = "Select Game",
+                enableDoneButton = true,
+                enableSearchButton = true,
                 onClick = {
                     navController.navigate(route = Screen.MainScreen.route)
                 }
