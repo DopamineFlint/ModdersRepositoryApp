@@ -1,13 +1,17 @@
 package ru.dpflint.moddersrepository.presentation.screens.main
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -21,6 +25,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -39,11 +45,17 @@ fun MainScreen(
     navController: NavController
 ) {
     val state by viewModel.state.collectAsState()
+    val verticalGridState = rememberLazyGridState()
+    var isMethodCalled by rememberSaveable { mutableStateOf(false) }
 
-    LaunchedEffect(key1 = true) {
-        viewModel.handleIntent(
-            intent = ModsIntent.LoadGamesFromNexus
-        )
+    LaunchedEffect(Unit) {
+        Log.d("RECOMPOSE_LOG", "Recomposed")
+        if (!isMethodCalled) {
+            viewModel.handleIntent(
+                intent = ModsIntent.LoadGamesFromNexus
+            )
+            isMethodCalled = true
+        }
     }
 
     Scaffold(
@@ -77,7 +89,8 @@ fun MainScreen(
             else -> {
                 GamesList(
                     gamesList = state.games,
-                    paddingValues = padding
+                    paddingValues = padding,
+                    state = verticalGridState
                 )
             }
         }
@@ -86,6 +99,7 @@ fun MainScreen(
 
 @Composable
 fun GamesList(
+    state: LazyGridState,
     gamesList: List<GameModel>,
     paddingValues: PaddingValues
 ) {
@@ -99,7 +113,8 @@ fun GamesList(
             top = 16.dp,
             end = 12.dp,
             bottom = 16.dp
-        )
+        ),
+        state = state
     ) {
         items(if (gamesList.isEmpty()) 0 else 20) { index ->
             Card(

@@ -27,7 +27,11 @@ class MainViewModel() : ViewModel() { //TODO
         viewModelScope.launch { //TODO для чего нужен viewModelScope?
             when (intent) {
                 ModsIntent.LoadGamesFromNexus -> {
-                    loadModsFromNexus()
+                    if (_state.value.games.isEmpty()) { //TODO проверяем кэш, что бы устранить перезагрузку при повороте экрана, если контент есть
+                        loadModsFromNexus()
+                    } else {
+                        return@launch
+                    }
                 }
                 else -> {}
             }
