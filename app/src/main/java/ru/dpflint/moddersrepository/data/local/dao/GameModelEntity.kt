@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "saved_games_list")
-data class GameModelDao(
+data class GameModelEntity(
     @PrimaryKey val id: Int,
     @ColumnInfo(name = "name") val name: String?
 )

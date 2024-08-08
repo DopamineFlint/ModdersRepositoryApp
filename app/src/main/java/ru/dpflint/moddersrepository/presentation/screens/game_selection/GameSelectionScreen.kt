@@ -21,6 +21,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -43,6 +46,10 @@ fun GameSelectionScreen(
 ) {
 
     val state by viewModel.state.collectAsState()
+
+    val selectedItems = remember {
+        mutableStateListOf<GameModel>()
+    }
 
     LaunchedEffect(key1 = true) {
         viewModel.handleIntent(
@@ -80,7 +87,8 @@ fun GameSelectionScreen(
                 }
                 else -> {
                     GameSelectionList(
-                        gamesList = state.games
+                        gamesList = state.games,
+                        selectedItems = selectedItems
                     )
                 }
             }
@@ -90,7 +98,8 @@ fun GameSelectionScreen(
 
 @Composable
 private fun GameSelectionList(
-    gamesList: List<GameModel>
+    gamesList: List<GameModel>,
+    selectedItems: SnapshotStateList<GameModel>
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
@@ -100,6 +109,7 @@ private fun GameSelectionList(
             count = gamesList.size,
             key = { item -> gamesList[item].name }
         ) { i ->
+            val isSelected = selectedItems.contains(gamesList[i])
             Row(
                 modifier = Modifier
                     .wrapContentHeight()
@@ -116,7 +126,9 @@ private fun GameSelectionList(
                 )
                 Checkbox(
                     checked = false,
-                    onCheckedChange = {},
+                    onCheckedChange = {
+                        println(selectedItems.contains(gamesList[i]).toString())
+                    },
                 )
             }
         }
