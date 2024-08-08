@@ -1,5 +1,6 @@
 package ru.dpflint.moddersrepository.di
 
+import com.google.gson.Gson
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.core.module.dsl.viewModel
@@ -44,6 +45,10 @@ val appModule = module {
 
     single<GetDataFromNexusUseCase> {
         GetDataFromNexusUseCase()
+    }
+
+    single<Gson> {
+        Gson()
     }
 
     viewModel {
