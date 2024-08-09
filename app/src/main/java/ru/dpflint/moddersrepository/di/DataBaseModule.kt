@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import org.koin.dsl.module
 import ru.dpflint.moddersrepository.data.local.ModRepositoryDatabase
-import ru.dpflint.moddersrepository.data.local.SavedGamesListDao
+import ru.dpflint.moddersrepository.data.local.ModsDao
 
 val databaseModule = module {
     single<ModRepositoryDatabase> {
@@ -18,7 +18,7 @@ val databaseModule = module {
             .build()
     }
 
-    single<SavedGamesListDao> {
+    single<ModsDao> {
         get<ModRepositoryDatabase>().getSavedGamesListDao()
     }
 }

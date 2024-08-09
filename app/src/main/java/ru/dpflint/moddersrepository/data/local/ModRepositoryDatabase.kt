@@ -15,5 +15,5 @@ import ru.dpflint.moddersrepository.data.local.dao.GameModelEntity
 @TypeConverters(ModRepositoryTypeConverter::class)
 abstract class ModRepositoryDatabase : RoomDatabase() {
 
-    abstract fun getSavedGamesListDao() : SavedGamesListDao
+    abstract fun getSavedGamesListDao() : ModsDao
 }

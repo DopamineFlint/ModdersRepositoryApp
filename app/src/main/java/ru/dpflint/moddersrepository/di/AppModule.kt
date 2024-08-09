@@ -43,10 +43,6 @@ val appModule = module {
             .build()
     }
 
-    single<GetDataFromNexusUseCase> {
-        GetDataFromNexusUseCase()
-    }
-
     single<Gson> {
         Gson()
     }

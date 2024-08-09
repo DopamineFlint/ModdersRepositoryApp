@@ -67,7 +67,11 @@ fun GameSelectionScreen(
                 enableDoneButton = true,
                 enableSearchButton = true,
                 onClick = {
-                    navController.navigate(route = Screen.MainScreen.route)
+                    viewModel.handleIntent(
+                        intent = ModsIntent.SaveSelectedGamesIntoDatabase(
+                            selectedItems
+                        )
+                    )
                 }
             )
         },
@@ -86,6 +90,11 @@ fun GameSelectionScreen(
                 }
                 state.error != null -> {
                     ErrorMessage(state.error)
+                }
+                state.isSelectedGamesSavedSuccessfully -> {
+                    navController.navigate(
+                        route = Screen.MainScreen.route
+                    ) //TODO возможно это мега тупо
                 }
                 else -> {
                     GameSelectionList(
@@ -111,7 +120,6 @@ private fun GameSelectionList(
             count = gamesList.size,
             key = { item -> gamesList[item].name }
         ) { i ->
-            //val isSelected = selectedItems.contains(gamesList[i])
             var isChecked by rememberSaveable { mutableStateOf(false) }
             Row(
                 modifier = Modifier

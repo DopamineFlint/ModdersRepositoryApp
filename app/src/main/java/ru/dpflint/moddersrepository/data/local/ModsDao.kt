@@ -7,12 +7,12 @@ import androidx.room.Query
 import ru.dpflint.moddersrepository.data.local.dao.GameModelEntity
 
 @Dao
-interface SavedGamesListDao {
+interface ModsDao {
     @Query("SELECT * FROM saved_games_list")
     fun getSavedGamesList(): List<GameModelEntity>
 
     @Insert
-    fun insertSelectedGames(vararg games: GameModelEntity)
+    fun insertSelectedGames(vararg games: List<GameModelEntity>)
 
     @Delete
     fun deleteSelectedGame(game: GameModelEntity)
