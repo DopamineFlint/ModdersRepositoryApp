@@ -22,7 +22,10 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -38,6 +41,7 @@ import ru.dpflint.moddersrepository.presentation.screens.main.GamesList
 import ru.dpflint.moddersrepository.presentation.screens.main.LoadingBar
 import ru.dpflint.moddersrepository.presentation.screens.main.ModsIntent
 import ru.dpflint.moddersrepository.presentation.viewmodel.MainViewModel
+import ru.dpflint.moddersrepository.utils.rememberMutableStateListOf
 
 @Composable
 fun GameSelectionScreen(
@@ -47,9 +51,7 @@ fun GameSelectionScreen(
 
     val state by viewModel.state.collectAsState()
 
-    val selectedItems = remember {
-        mutableStateListOf<GameModel>()
-    }
+    val selectedItems = rememberMutableStateListOf<GameModel>()
 
     LaunchedEffect(key1 = true) {
         viewModel.handleIntent(
@@ -109,7 +111,8 @@ private fun GameSelectionList(
             count = gamesList.size,
             key = { item -> gamesList[item].name }
         ) { i ->
-            val isSelected = selectedItems.contains(gamesList[i])
+            //val isSelected = selectedItems.contains(gamesList[i])
+            var isChecked by rememberSaveable { mutableStateOf(false) }
             Row(
                 modifier = Modifier
                     .wrapContentHeight()
@@ -125,9 +128,18 @@ private fun GameSelectionList(
                     contentDescription = "Icon"
                 )
                 Checkbox(
-                    checked = false,
+                    checked = isChecked,
                     onCheckedChange = {
+                        isChecked = !isChecked
+                        if (isChecked) {
+                            selectedItems.add(gamesList[i])
+                        } else {
+                            if (selectedItems.contains(gamesList[i])) {
+                                selectedItems.remove(gamesList[i])
+                            }
+                        }
                         println(selectedItems.contains(gamesList[i]).toString())
+                        println(selectedItems.toList().toString())
                     },
                 )
             }

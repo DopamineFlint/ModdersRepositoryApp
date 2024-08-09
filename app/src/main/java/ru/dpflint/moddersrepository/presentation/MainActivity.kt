@@ -20,7 +20,7 @@ import ru.dpflint.moddersrepository.presentation.ui.theme.ForTestsAndExercisesTh
 
 class MainActivity : ComponentActivity() {
 
-    lateinit var navController: NavHostController
+    private lateinit var navController: NavHostController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -7,9 +7,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.get
-import org.koin.java.KoinJavaComponent.get
 import org.koin.java.KoinJavaComponent.inject
 import ru.dpflint.moddersrepository.domain.usecase.GetDataFromNexusUseCase
 import ru.dpflint.moddersrepository.presentation.screens.main.ModsIntent

@@ -26,6 +26,7 @@ mockito-kotlin-version = "5.4.0"
 mockk-version = "1.13.11"
 
 kapt-version = "1.9.25"
+kotlin-parcelize-version = "1.9.25"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -64,5 +65,6 @@ mockk = { module = "io.mockk:mockk", version.ref = "mockk-version" }
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kapt-version" }
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin-parcelize-version" }
 
 
