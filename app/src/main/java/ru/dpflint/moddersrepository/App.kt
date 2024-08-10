@@ -6,6 +6,7 @@ import org.koin.core.context.startKoin
 import ru.dpflint.moddersrepository.di.appModule
 import ru.dpflint.moddersrepository.di.databaseModule
 import ru.dpflint.moddersrepository.di.repositoryModule
+import ru.dpflint.moddersrepository.di.sharedPrefModule
 import ru.dpflint.moddersrepository.di.useCasesModule
 
 class App : Application() {
@@ -16,6 +17,7 @@ class App : Application() {
         startKoin {
             androidContext(this@App)
             modules(
+                sharedPrefModule,
                 databaseModule,
                 appModule,
                 repositoryModule,

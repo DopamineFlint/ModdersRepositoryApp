@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import org.koin.java.KoinJavaComponent.inject
+import ru.dpflint.moddersrepository.data.local.SharedPrefUtil
 import ru.dpflint.moddersrepository.domain.model.GameModel
 import ru.dpflint.moddersrepository.domain.usecase.GetDataFromNexusUseCase
 import ru.dpflint.moddersrepository.domain.usecase.SaveSelectedGamesIntoDatabase
@@ -21,9 +22,13 @@ class MainViewModel() : ViewModel() { //TODO
 
     private val getDataFromNexusUseCase by inject<GetDataFromNexusUseCase>(GetDataFromNexusUseCase::class.java)
     private val saveSelectedGamesIntoDatabase by inject<SaveSelectedGamesIntoDatabase>(SaveSelectedGamesIntoDatabase::class.java)
+    private val sharedPrefUtil by inject<SharedPrefUtil>(SharedPrefUtil::class.java)
 
     private val _state = MutableStateFlow(ModsViewState())
     val state: StateFlow<ModsViewState> = _state //TODO что такое Flow, StateFlow и SharedFlow
+
+    fun getIsFirstAppLaunch() = sharedPrefUtil.isFirstAppLaunch()
+    fun saveFirstAppLaunch() = sharedPrefUtil.saveFirstAppLaunch(false)
 
     fun handleIntent(intent: ModsIntent) {
         CoroutineScope(Dispatchers.IO).launch { //TODO для чего нужен viewModelScope?

@@ -48,6 +48,17 @@ fun GameSelectionScreen(
     viewModel: MainViewModel = koinViewModel(),
     navController: NavController
 ) {
+    if (!viewModel.getIsFirstAppLaunch()) {
+        navController.navigate(
+            route = Screen.MainScreen.route
+        ) {
+            popUpTo(
+                route = Screen.GameSelectionScreen.route
+            ) {
+                inclusive = true
+            }
+        }
+    }
 
     val state by viewModel.state.collectAsState()
 
@@ -92,6 +103,7 @@ fun GameSelectionScreen(
                     ErrorMessage(state.error)
                 }
                 state.isSelectedGamesSavedSuccessfully -> {
+                    viewModel.saveFirstAppLaunch()
                     navController.navigate(
                         route = Screen.MainScreen.route
                     ) //TODO возможно это мега тупо
