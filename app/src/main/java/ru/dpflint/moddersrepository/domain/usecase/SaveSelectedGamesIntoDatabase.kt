@@ -12,7 +12,7 @@ class SaveSelectedGamesIntoDatabase {
 
     private val modsRepository by inject<ModsRepository>(ModsRepository::class.java)
 
-    fun saveData(data: List<GameModel>): Flow<Resource<Unit>> = flow {
+    suspend fun saveData(data: List<GameModel>): Flow<Resource<Unit>> = flow {
         try {
             emit(Resource.Loading())
 

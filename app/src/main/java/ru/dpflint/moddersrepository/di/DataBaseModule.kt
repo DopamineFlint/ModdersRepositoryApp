@@ -1,7 +1,7 @@
 package ru.dpflint.moddersrepository.di
 
-import android.content.Context
 import androidx.room.Room
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import ru.dpflint.moddersrepository.data.local.ModRepositoryDatabase
 import ru.dpflint.moddersrepository.data.local.ModsDao
@@ -9,7 +9,7 @@ import ru.dpflint.moddersrepository.data.local.ModsDao
 val databaseModule = module {
     single<ModRepositoryDatabase> {
         Room.databaseBuilder(
-            context = get<Context>(),
+            context = androidContext(),
             ModRepositoryDatabase::class.java,
             "mod_repository_db"
         )

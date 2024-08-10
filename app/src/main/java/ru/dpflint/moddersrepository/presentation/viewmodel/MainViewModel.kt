@@ -2,6 +2,8 @@ package ru.dpflint.moddersrepository.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -24,7 +26,7 @@ class MainViewModel() : ViewModel() { //TODO
     val state: StateFlow<ModsViewState> = _state //TODO что такое Flow, StateFlow и SharedFlow
 
     fun handleIntent(intent: ModsIntent) {
-        viewModelScope.launch { //TODO для чего нужен viewModelScope?
+        CoroutineScope(Dispatchers.IO).launch { //TODO для чего нужен viewModelScope?
             when (intent) {
                 is ModsIntent.LoadGamesFromNexus -> {
                     if (_state.value.games.isEmpty()) { //TODO проверяем кэш, что бы устранить перезагрузку при повороте экрана, если контент есть
@@ -45,13 +47,16 @@ class MainViewModel() : ViewModel() { //TODO
         getDataFromNexusUseCase.getDataFromNexusMods().onEach { result ->
             when(result) {
                 is Resource.Loading -> {
-                    _state.value = _state.value.copy(isLoading = true, error = null)
+                    _state.value = _state.value.copy(isLoading = true, error = null, isSelectedGamesSavedSuccessfully = false)
+                    println("Loading")
                 }
                 is Resource.Error -> {
-                    _state.value = _state.value.copy(isLoading = false, error = result.message)
+                    _state.value = _state.value.copy(isLoading = false, error = result.message, isSelectedGamesSavedSuccessfully = false)
+                    println(result.message)
                 }
                 is Resource.Success -> {
-                    _state.value = _state.value.copy(isLoading = false, error = null, games = result.data!!) //TODO result.data!!
+                    println("Success")
+                    _state.value = _state.value.copy(isLoading = false, error = null, games = result.data!!, isSelectedGamesSavedSuccessfully = false) //TODO result.data!!
                 }
                 else -> {}
             }
