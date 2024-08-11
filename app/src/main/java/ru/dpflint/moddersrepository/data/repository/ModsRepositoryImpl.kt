@@ -28,10 +28,14 @@ class ModsRepositoryImpl(
     }
 
     override suspend fun getUpdatedMods(gameDomainName: String): List<ModIdModel> {
-        return modsApi.getUpdatedMods(gameDomainName)
+        val updatedModsList = modsApi.getUpdatedMods(gameDomainName)
+        updatedModsList.forEach {
+            it.gameDomainName = gameDomainName
+        }
+        return updatedModsList
     }
 
-    override suspend fun getModDetails(modId: Int): ModDetailsModel {
+    override suspend fun getModDetails(modId: Int, gameDomainName: String): ModDetailsModel {
         return modsApi.getModDetails(modId)
     }
 }

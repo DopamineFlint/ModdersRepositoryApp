@@ -23,8 +23,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -34,10 +32,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import org.koin.androidx.compose.koinViewModel
 import ru.dpflint.moddersrepository.presentation.viewmodel.MainViewModel
-import ru.dpflint.moddersrepository.domain.model.GameModel
+import ru.dpflint.moddersrepository.domain.model.ModDetailsModel
 import ru.dpflint.moddersrepository.presentation.components.CustomBottomAppBar
 import ru.dpflint.moddersrepository.presentation.components.CustomTopBar
-import ru.dpflint.moddersrepository.presentation.navigation.Screen
 
 @Composable
 fun MainScreen(
@@ -87,8 +84,8 @@ fun MainScreen(
             }
 
             else -> {
-                GamesList(
-                    gamesList = state.games,
+                ModsList(
+                    modsList = state.mods,
                     paddingValues = padding,
                     state = verticalGridState
                 )
@@ -98,9 +95,9 @@ fun MainScreen(
 }
 
 @Composable
-fun GamesList(
+fun ModsList(
     state: LazyGridState,
-    gamesList: List<GameModel>,
+    modsList: List<ModDetailsModel>,
     paddingValues: PaddingValues
 ) {
     LazyVerticalGrid(
@@ -116,7 +113,7 @@ fun GamesList(
         ),
         state = state
     ) {
-        items(if (gamesList.isEmpty()) 0 else 20) { index ->
+        items(if (modsList.isEmpty()) 0 else 20) { index ->
             Card(
                 colors = CardDefaults.cardColors(containerColor = Color(18, 20, 23)),
                 modifier = Modifier
@@ -125,11 +122,11 @@ fun GamesList(
                 elevation = CardDefaults.elevatedCardElevation(),
             ) {
                 Text(
-                    text = gamesList[index].name,
+                    text = modsList[index].name,
                     color = Color.White
                 )
                 Text(
-                    text = gamesList[index].genre,
+                    text = modsList[index].pictureURL,
                     color = Color.White
                 )
             }

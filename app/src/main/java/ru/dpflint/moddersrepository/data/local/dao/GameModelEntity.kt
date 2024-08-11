@@ -7,5 +7,6 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "saved_games_list")
 data class GameModelEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    @ColumnInfo(name = "name") val name: String?
+    @ColumnInfo(name = "name") val name: String?,
+    @ColumnInfo(name = "game_domain_name") val gameDomainName: String?
 )

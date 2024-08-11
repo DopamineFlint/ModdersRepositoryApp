@@ -22,7 +22,9 @@ class LoadSubscribedModsUseCase() {
             val savedData = modsRepository.getSavedGamesList()
 
             for (item in savedData) {
-                 listOfUpdatedMods.addAll(modsRepository.getUpdatedMods(item.name ?: "")) //modsRepository.getUpdatedMods()
+                 listOfUpdatedMods.addAll(modsRepository.getUpdatedMods(
+                     item.gameDomainName ?: "")
+                 )
             }
 
             for (item in listOfUpdatedMods) {

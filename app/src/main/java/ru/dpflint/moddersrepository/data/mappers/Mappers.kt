@@ -7,6 +7,7 @@ import ru.dpflint.moddersrepository.domain.model.GameModel
 fun GameModelResponse.toGameModel(): GameModel {
     return GameModel(
         name = name,
+        gameDomainName = gameDomainName,
         genre = genre,
         mods = mods
     )
@@ -14,6 +15,7 @@ fun GameModelResponse.toGameModel(): GameModel {
 
 fun GameModel.toGameModelEntity(): GameModelEntity {
     return GameModelEntity(
-        name = name
+        name = name,
+        gameDomainName = gameDomainName
     )
 }
