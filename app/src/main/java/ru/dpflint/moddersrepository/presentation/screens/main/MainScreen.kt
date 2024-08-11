@@ -52,7 +52,7 @@ fun MainScreen(
         Log.d("RECOMPOSE_LOG", "Recomposed")
         if (!isMethodCalled) {
             viewModel.handleIntent(
-                intent = ModsIntent.LoadGamesFromNexus
+                intent = ModsIntent.LoadSubscribedGamesMods
             )
             isMethodCalled = true
         }

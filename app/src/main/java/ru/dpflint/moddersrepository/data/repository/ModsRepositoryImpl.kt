@@ -7,6 +7,8 @@ import ru.dpflint.moddersrepository.data.local.dao.GameModelEntity
 import ru.dpflint.moddersrepository.data.remote.ModsApi
 import ru.dpflint.moddersrepository.data.remote.dto.response.GameModelResponse
 import ru.dpflint.moddersrepository.domain.model.GameModel
+import ru.dpflint.moddersrepository.domain.model.ModDetailsModel
+import ru.dpflint.moddersrepository.domain.model.ModIdModel
 import ru.dpflint.moddersrepository.domain.repository.ModsRepository
 
 class ModsRepositoryImpl(
@@ -19,5 +21,17 @@ class ModsRepositoryImpl(
 
     override suspend fun saveSelectedGamesIntoDatabase(data: List<GameModelEntity>) {
         return modsDao.insertSelectedGames(data)
+    }
+
+    override suspend fun getSavedGamesList(): List<GameModelEntity> {
+        return modsDao.getSavedGamesList()
+    }
+
+    override suspend fun getUpdatedMods(gameDomainName: String): List<ModIdModel> {
+        return modsApi.getUpdatedMods(gameDomainName)
+    }
+
+    override suspend fun getModDetails(modId: Int): ModDetailsModel {
+        return modsApi.getModDetails(modId)
     }
 }

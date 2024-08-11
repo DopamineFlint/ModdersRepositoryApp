@@ -13,6 +13,7 @@ import org.koin.java.KoinJavaComponent.inject
 import ru.dpflint.moddersrepository.data.local.SharedPrefUtil
 import ru.dpflint.moddersrepository.domain.model.GameModel
 import ru.dpflint.moddersrepository.domain.usecase.GetDataFromNexusUseCase
+import ru.dpflint.moddersrepository.domain.usecase.LoadSubscribedModsUseCase
 import ru.dpflint.moddersrepository.domain.usecase.SaveSelectedGamesIntoDatabase
 import ru.dpflint.moddersrepository.presentation.screens.main.ModsIntent
 import ru.dpflint.moddersrepository.presentation.screens.main.ModsViewState
@@ -22,6 +23,7 @@ class MainViewModel() : ViewModel() { //TODO
 
     private val getDataFromNexusUseCase by inject<GetDataFromNexusUseCase>(GetDataFromNexusUseCase::class.java)
     private val saveSelectedGamesIntoDatabase by inject<SaveSelectedGamesIntoDatabase>(SaveSelectedGamesIntoDatabase::class.java)
+    private val loadSubscribedModsUseCase by inject<LoadSubscribedModsUseCase>(LoadSubscribedModsUseCase::class.java)
     private val sharedPrefUtil by inject<SharedPrefUtil>(SharedPrefUtil::class.java)
 
     private val _state = MutableStateFlow(ModsViewState())
@@ -42,6 +44,9 @@ class MainViewModel() : ViewModel() { //TODO
                 }
                 is ModsIntent.SaveSelectedGamesIntoDatabase -> {
                     saveSelectedGamesIntoDatabase(intent.data)
+                }
+                is ModsIntent.LoadSubscribedGamesMods -> {
+                    loadSubscribedMods()
                 }
                 else -> {}
             }
@@ -84,6 +89,27 @@ class MainViewModel() : ViewModel() { //TODO
                         games = emptyList(),
                         isSelectedGamesSavedSuccessfully = true
                     ) //TODO result.data!!
+                }
+                else -> {}
+            }
+        }.launchIn(viewModelScope)
+    }
+
+    private suspend fun loadSubscribedMods() {
+        loadSubscribedModsUseCase.loadSubscribedMods().onEach { result ->
+            when(result) {
+                is Resource.Loading -> {
+                    _state.value = _state.value.copy(isLoading = true, error = null)
+                }
+                is Resource.Error -> {
+                    _state.value = _state.value.copy(isLoading = false, error = result.message)
+                }
+                is Resource.Success -> {
+                    _state.value = _state.value.copy(
+                        isLoading = false,
+                        error = null,
+                        mods = result.data ?: emptyList()
+                    )
                 }
                 else -> {}
             }

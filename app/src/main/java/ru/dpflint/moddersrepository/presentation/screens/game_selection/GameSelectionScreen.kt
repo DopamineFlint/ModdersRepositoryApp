@@ -37,7 +37,6 @@ import ru.dpflint.moddersrepository.domain.model.GameModel
 import ru.dpflint.moddersrepository.presentation.components.CustomTopBar
 import ru.dpflint.moddersrepository.presentation.navigation.Screen
 import ru.dpflint.moddersrepository.presentation.screens.main.ErrorMessage
-import ru.dpflint.moddersrepository.presentation.screens.main.GamesList
 import ru.dpflint.moddersrepository.presentation.screens.main.LoadingBar
 import ru.dpflint.moddersrepository.presentation.screens.main.ModsIntent
 import ru.dpflint.moddersrepository.presentation.viewmodel.MainViewModel
