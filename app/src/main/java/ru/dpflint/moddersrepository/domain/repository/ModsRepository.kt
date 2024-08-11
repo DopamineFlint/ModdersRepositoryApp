@@ -11,5 +11,5 @@ interface ModsRepository {
     suspend fun saveSelectedGamesIntoDatabase(data: List<GameModelEntity>)
     suspend fun getSavedGamesList(): List<GameModelEntity>
     suspend fun getUpdatedMods(gameDomainName: String): List<ModIdModel>
-    suspend fun getModDetails(modId: Int): ModDetailsModel
+    suspend fun getModDetails(modId: Int, gameDomainName: String): ModDetailsModel
 }

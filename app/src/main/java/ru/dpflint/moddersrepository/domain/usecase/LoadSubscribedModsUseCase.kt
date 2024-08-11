@@ -28,7 +28,7 @@ class LoadSubscribedModsUseCase() {
             }
 
             for (item in listOfUpdatedMods) {
-                modsList.add(modsRepository.getModDetails(item.modId))
+                modsList.add(modsRepository.getModDetails(item.modId, item.gameDomainName))
             }
 
             emit(Resource.Success(modsList))
