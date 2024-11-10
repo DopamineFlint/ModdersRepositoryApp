@@ -13,11 +13,11 @@ import ru.dpflint.moddersrepository.domain.model.GameModel
 import ru.dpflint.moddersrepository.domain.repository.ModsRepository
 import ru.dpflint.moddersrepository.utils.Resource
 
-class GetDataFromNexusUseCase() {
+class GetDataFromNexusUseCase {
 
-    private val modsRepository by inject<ModsRepository>(ModsRepository::class.java) //TODO
+    private val modsRepository by inject<ModsRepository>(ModsRepository::class.java)
 
-    suspend fun getDataFromNexusMods(): Flow<Resource<List<GameModel>>> = flow { //TODO FLOW
+    suspend fun getDataFromNexusMods(): Flow<Resource<List<GameModel>>> = flow {
 
         //delay(4000)
         emit(Resource.Loading())

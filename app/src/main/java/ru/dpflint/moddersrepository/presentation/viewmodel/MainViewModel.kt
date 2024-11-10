@@ -27,16 +27,16 @@ class MainViewModel() : ViewModel() { //TODO
     private val sharedPrefUtil by inject<SharedPrefUtil>(SharedPrefUtil::class.java)
 
     private val _state = MutableStateFlow(ModsViewState())
-    val state: StateFlow<ModsViewState> = _state //TODO что такое Flow, StateFlow и SharedFlow
+    val state: StateFlow<ModsViewState> = _state
 
     fun getIsFirstAppLaunch() = sharedPrefUtil.isFirstAppLaunch()
     fun saveFirstAppLaunch() = sharedPrefUtil.saveFirstAppLaunch(false)
 
     fun handleIntent(intent: ModsIntent) {
-        CoroutineScope(Dispatchers.IO).launch { //TODO для чего нужен viewModelScope?
+        CoroutineScope(Dispatchers.IO).launch {
             when (intent) {
                 is ModsIntent.LoadGamesFromNexus -> {
-                    if (_state.value.games.isEmpty()) { //TODO проверяем кэш, что бы устранить перезагрузку при повороте экрана, если контент есть
+                    if (_state.value.games.isEmpty()) {
                         loadModsFromNexus()
                     } else {
                         return@launch

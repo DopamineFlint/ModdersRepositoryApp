@@ -11,10 +11,10 @@ import ru.dpflint.moddersrepository.domain.model.ModDetailsModel
 import ru.dpflint.moddersrepository.domain.model.ModIdModel
 import ru.dpflint.moddersrepository.domain.repository.ModsRepository
 
-class ModsRepositoryImpl(
-    private val modsApi: ModsApi = get(ModsApi::class.java),
+class ModsRepositoryImpl : ModsRepository, KoinComponent {
+    private val modsApi: ModsApi = get(ModsApi::class.java)
     private val modsDao: ModsDao = get(ModsDao::class.java)
-) : ModsRepository, KoinComponent {
+
     override suspend fun getDataFromNexusMods(): List<GameModelResponse> {
         return modsApi.getNexusGamesList()
     }
@@ -30,7 +30,7 @@ class ModsRepositoryImpl(
     override suspend fun getUpdatedMods(gameDomainName: String): List<ModIdModel> {
         val updatedModsList = modsApi.getUpdatedMods(gameDomainName)
         updatedModsList.forEach {
-            it.gameDomainName = gameDomainName //TODO неправильно мб
+            it.gameDomainName = gameDomainName
         }
         return updatedModsList
     }
