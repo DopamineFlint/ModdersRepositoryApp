@@ -8,11 +8,16 @@ import ru.dpflint.moddersrepository.di.databaseModule
 import ru.dpflint.moddersrepository.di.repositoryModule
 import ru.dpflint.moddersrepository.di.sharedPrefModule
 import ru.dpflint.moddersrepository.di.useCasesModule
+import timber.log.Timber
 
 class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
+
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
 
         startKoin {
             androidContext(this@App)

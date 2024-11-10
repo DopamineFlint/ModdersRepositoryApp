@@ -35,6 +35,7 @@ import ru.dpflint.moddersrepository.presentation.viewmodel.MainViewModel
 import ru.dpflint.moddersrepository.domain.model.ModDetailsModel
 import ru.dpflint.moddersrepository.presentation.components.CustomBottomAppBar
 import ru.dpflint.moddersrepository.presentation.components.CustomTopBar
+import timber.log.Timber
 
 @Composable
 fun MainScreen(
@@ -45,8 +46,9 @@ fun MainScreen(
     val verticalGridState = rememberLazyGridState()
     var isMethodCalled by rememberSaveable { mutableStateOf(false) }
 
-    LaunchedEffect(Unit) {
-        Log.d("RECOMPOSE_LOG", "Recomposed")
+    Timber.tag("MainScreenCalledLog").d("MAIN SCREEN CALLED")
+
+    LaunchedEffect(key1 = true) {
         if (!isMethodCalled) {
             viewModel.handleIntent(
                 intent = ModsIntent.LoadSubscribedGamesMods
@@ -78,17 +80,21 @@ fun MainScreen(
             state.isLoading -> {
                 LoadingBar()
             }
-
             state.error != null -> {
                 ErrorMessage(state.error)
             }
-
             else -> {
-                ModsList(
-                    modsList = state.mods,
-                    paddingValues = padding,
-                    state = verticalGridState
-                )
+                if (state.mods.isNotEmpty()) {
+                    Timber.tag("IsNotEmptyLog").d("PASSED")
+                    Timber.tag("IsNotEmptyLog").d(state.mods.isNotEmpty().toString())
+                    Timber.tag("IsNotEmptyLog").d(state.mods.size.toString())
+                    Timber.tag("IsNotEmptyLog").d(state.mods.toString())
+                    ModsList(
+                        modsList = state.mods,
+                        paddingValues = padding,
+                        state = verticalGridState
+                    )
+                }
             }
         }
     }
@@ -113,7 +119,7 @@ fun ModsList(
         ),
         state = state
     ) {
-        items(if (modsList.isEmpty()) 0 else 20) { index ->
+        items(20) { index ->
             Card(
                 colors = CardDefaults.cardColors(containerColor = Color(18, 20, 23)),
                 modifier = Modifier
@@ -122,11 +128,11 @@ fun ModsList(
                 elevation = CardDefaults.elevatedCardElevation(),
             ) {
                 Text(
-                    text = modsList[index].name,
+                    text = modsList[index].name ?: "UNKNOWN",
                     color = Color.White
                 )
                 Text(
-                    text = modsList[index].pictureURL,
+                    text = modsList[index].pictureURL ?: "UNKNOWN",
                     color = Color.White
                 )
             }

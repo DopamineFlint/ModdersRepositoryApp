@@ -1,12 +1,9 @@
 package ru.dpflint.moddersrepository.data.remote
 
-import androidx.room.Query
-import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Path
 import ru.dpflint.moddersrepository.data.remote.dto.response.GameModelResponse
-import ru.dpflint.moddersrepository.domain.model.GameModel
 import ru.dpflint.moddersrepository.domain.model.ModDetailsModel
 import ru.dpflint.moddersrepository.domain.model.ModIdModel
 

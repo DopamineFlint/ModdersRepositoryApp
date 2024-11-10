@@ -1,5 +1,6 @@
 package ru.dpflint.moddersrepository.presentation.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineScope
@@ -11,13 +12,14 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import org.koin.java.KoinJavaComponent.inject
 import ru.dpflint.moddersrepository.data.local.SharedPrefUtil
-import ru.dpflint.moddersrepository.domain.model.GameModel
+import ru.dpflint.moddersrepository.domain.model.NexusGameModel
 import ru.dpflint.moddersrepository.domain.usecase.GetDataFromNexusUseCase
 import ru.dpflint.moddersrepository.domain.usecase.LoadSubscribedModsUseCase
 import ru.dpflint.moddersrepository.domain.usecase.SaveSelectedGamesIntoDatabase
 import ru.dpflint.moddersrepository.presentation.screens.main.ModsIntent
 import ru.dpflint.moddersrepository.presentation.screens.main.ModsViewState
 import ru.dpflint.moddersrepository.utils.Resource
+import timber.log.Timber
 
 class MainViewModel() : ViewModel() { //TODO
 
@@ -73,22 +75,24 @@ class MainViewModel() : ViewModel() { //TODO
         }.launchIn(viewModelScope)
     }
 
-    private suspend fun saveSelectedGamesIntoDatabase(data: List<GameModel>) {
+    private suspend fun saveSelectedGamesIntoDatabase(data: List<NexusGameModel>) {
         saveSelectedGamesIntoDatabase.saveData(data).onEach { result ->
             when(result) {
                 is Resource.Loading -> {
                     _state.value = _state.value.copy(isLoading = true, error = null)
                 }
                 is Resource.Error -> {
+                    Timber.tag("SaveSelectedGamesIntoDatabaseLog").d("Error")
                     _state.value = _state.value.copy(isLoading = false, error = result.message)
                 }
                 is Resource.Success -> {
+                    Timber.tag("SaveSelectedGamesIntoDatabaseLog").d("Success")
                     _state.value = _state.value.copy(
                         isLoading = false,
                         error = null,
                         games = emptyList(),
                         isSelectedGamesSavedSuccessfully = true
-                    ) //TODO result.data!!
+                    )
                 }
                 else -> {}
             }
