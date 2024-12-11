@@ -4,6 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import ru.dpflint.moddersrepository.presentation.screens.SelectedGameScreen
+import ru.dpflint.moddersrepository.presentation.screens.game_list.GameListScreen
 import ru.dpflint.moddersrepository.presentation.screens.game_selection.GameSelectionScreen
 import ru.dpflint.moddersrepository.presentation.screens.main.MainScreen
 import ru.dpflint.moddersrepository.presentation.screens.settings.SettingsScreen
@@ -14,7 +16,7 @@ fun SetupNavGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Screen.GameSelectionScreen.route
+        startDestination = Screen.GameListScreen.route
     ) {
         composable(
             route = Screen.GameSelectionScreen.route
@@ -30,6 +32,16 @@ fun SetupNavGraph(
             route = Screen.SettingsScreen.route
         ) {
             SettingsScreen(navController = navController)
+        }
+        composable(
+            route = Screen.GameListScreen.route
+        ) {
+            GameListScreen(navController = navController)
+        }
+        composable(
+            route = Screen.SelectedGameScreen.route
+        ) {
+            SelectedGameScreen(navController = navController)
         }
     }
 }

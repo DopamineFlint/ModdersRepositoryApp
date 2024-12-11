@@ -27,7 +27,9 @@ fun SettingsScreen(
         bottomBar = {
             CustomBottomAppBar(
                 navController = navController
-            )
+            ) {
+
+            }
         },
         containerColor = MaterialTheme.colorScheme.onPrimary
     ) { padding ->
