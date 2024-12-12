@@ -1,6 +1,7 @@
 package ru.dpflint.moddersrepository.presentation.components
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -8,6 +9,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarColors
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
@@ -20,6 +23,9 @@ fun CustomTopBar(
     onClick: () -> Unit
 ) {
     TopAppBar(
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = Color.Red
+        ),
         title = {
             Text(
                 text = title,
@@ -32,7 +38,7 @@ fun CustomTopBar(
                     onClick()
                 }) {
                     Icon(
-                        imageVector = Icons.Default.Done,
+                        imageVector = Icons.Default.Add,
                         contentDescription = "Done"
                     )
                 }

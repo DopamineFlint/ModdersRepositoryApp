@@ -24,31 +24,45 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import ru.dpflint.moddersrepository.presentation.components.CustomBottomAppBar
+import ru.dpflint.moddersrepository.presentation.components.CustomTopBar
 
 @Composable
 fun SelectedGameScreen(
     navController: NavController
 ) {
-    val dataArray by remember { mutableStateOf(listOf(
-        "Option One",
-        "Option Two",
-        "Option Three",
-        "Option Four",
-        "Option Five",
-        "Option Seven",
-        "Option Eight",
-        "Option Nine",
-        "Option Ten",
-        "Option Eleven",
-        "Option Twelve",
-        "Option Thirteen",
-        "Option Fourteen",
-        "Option Fifteen",
-    )) }
+    val dataArray by remember {
+        mutableStateOf(
+            listOf(
+                "Option One",
+                "Option Two",
+                "Option Three",
+                "Option Four",
+                "Option Five",
+                "Option Seven",
+                "Option Eight",
+                "Option Nine",
+                "Option Ten",
+                "Option Eleven",
+                "Option Twelve",
+                "Option Thirteen",
+                "Option Fourteen",
+                "Option Fifteen",
+            )
+        )
+    }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         containerColor = MaterialTheme.colorScheme.onPrimary,
+        topBar = {
+            CustomTopBar(
+                title = "Selected game",
+                enableDoneButton = true,
+                enableSearchButton = false,
+            ) {
+                println()
+            }
+        },
         bottomBar = {
             CustomBottomAppBar(
                 navController = navController
